@@ -704,7 +704,7 @@ addEventListener('DOMContentLoaded',()=>{
     if(!sl)return false;
     var st=sl.getAttribute('style')||'';
     if(/color:\s*#fff|color:\s*rgb\(255/i.test(st))return true;
-    var im=sl.querySelector('img');
+    var im=sl.querySelector(':scope > img');
     if(im){var is=im.getAttribute('style')||'';if(/inset:\s*0/.test(is)&&/cover/.test(is))return true;}
     return false;
   }
