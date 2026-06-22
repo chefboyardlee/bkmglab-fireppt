@@ -673,6 +673,9 @@ addEventListener('DOMContentLoaded',()=>{
 #m-arrows{display:none}
 @media (max-width:900px),(pointer:coarse){
   html,body{overflow:hidden}
+  /* iOS Safari: force full-bleed bg images onto their own layer so the
+     bottom edge paints fully inside the scaled deck (fixes gray strip) */
+  .slide>img{-webkit-transform:translateZ(0);transform:translateZ(0)}
   #m-arrows{position:fixed;left:0;right:0;bottom:18px;z-index:10000;display:flex;justify-content:center;gap:16px;pointer-events:none}
   #m-arrows button{pointer-events:auto;width:56px;height:56px;border-radius:50%;border:none;
     background:rgba(0,0,0,.5);color:#fff;font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;
@@ -699,10 +702,16 @@ addEventListener('DOMContentLoaded',()=>{
     return false;
   }
   function tint(){
-    if(!small()){document.documentElement.style.background='';document.body.style.background='';return;}
+    if(!small()){
+      document.documentElement.style.background='';document.body.style.background='';
+      deck.style.backgroundColor='';
+      return;
+    }
     var dark=isDark(activeSlide());
-    var bg=dark?'#0a0c14':(getComputedStyle(deck).backgroundColor||'#ffffff');
-    document.documentElement.style.background=bg;document.body.style.background=bg;
+    var bg=dark?'#0a0c14':'#ffffff';
+    document.documentElement.style.background=bg;
+    document.body.style.background=bg;
+    deck.style.backgroundColor=bg;
   }
   function fit(){
     if(!small()){['width','height','transform','transformOrigin','position','left','top'].forEach(function(p){deck.style[p]='';});tint();return;}
