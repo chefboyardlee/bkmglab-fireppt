@@ -36,7 +36,7 @@
 
 /* corner logos */
 .logo-tl{position:absolute;top:40px;left:88px;height:30px;z-index:10}
-.logo-tr{position:absolute;top:40px;right:88px;height:30px;z-index:10}
+.logo-tr{position:absolute;top:40px;right:88px;height:60px;z-index:10}
 
 /* big stat list (slide 6) */
 .statlist{display:flex;flex-direction:column;gap:18px}
@@ -104,6 +104,58 @@
 .contact b{font-weight:700}
 .contact{font-size:17px;line-height:1.7;color:var(--text-2)}
 .contact .l1{color:var(--text-1);font-weight:700}
+
+/* 견적 문의 — subdued floating CTA. Border/text use currentColor so it reads
+   white on dark/photo slides and ink on light slides. Frosted hover is desktop-only
+   (gated to hover/fine pointers) so backdrop-filter never runs on iOS Safari. */
+.quote-btn{
+  position:absolute;top:54px;right:96px;z-index:30;
+  display:inline-flex;align-items:center;
+  padding:13px 31px;border-radius:999px;
+  font-family:'Pretendard','Pretendard Variable',inherit;
+  font-weight:400;font-size:18.5px;letter-spacing:-.01em;line-height:1;
+  color:currentColor;border:1px solid currentColor;background:transparent;
+  text-decoration:none;opacity:.96;cursor:pointer;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  transition:background .4s ease,-webkit-backdrop-filter .4s ease,backdrop-filter .4s ease,opacity .3s ease,box-shadow .4s ease,transform .25s ease;
+}
+.quote-btn:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){
+  .quote-btn:hover{
+    opacity:1;text-decoration:none;
+    background:color-mix(in srgb, currentColor 14%, transparent);
+    -webkit-backdrop-filter:blur(12px) saturate(150%);
+    backdrop-filter:blur(12px) saturate(150%);
+    box-shadow:0 10px 36px rgba(0,0,0,.26);
+  }
+}
+/* page 2: ~200% larger, vertically centered */
+.quote-btn--hero{
+  top:50%;bottom:auto;right:96px;transform:translateY(-50%);
+  font-size:37px;padding:25px 61px;border-width:1.5px;
+}
+.quote-btn--hero:active{transform:translateY(-50%) scale(.97)}
+
+/* keyboard navigation hint — desktop only (hidden on touch / mobile) */
+.kbd-hint{
+  position:absolute;left:50%;bottom:78px;transform:translateX(-50%);z-index:30;
+  display:flex;flex-direction:column;align-items:center;gap:11px;
+  color:var(--text-2);pointer-events:none;text-align:center;
+}
+.kbd-hint .keys{display:flex;gap:10px}
+.kbd-hint kbd{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:42px;height:42px;padding:0 9px;
+  font-family:'Pretendard','Pretendard Variable',inherit;font-size:22px;font-weight:600;line-height:1;
+  color:currentColor;background:rgba(0,0,0,.02);
+  border:1.5px solid currentColor;border-radius:9px;
+  box-shadow:0 2px 0 color-mix(in srgb, currentColor 35%, transparent);
+  animation:kbdBounce 1.7s ease-in-out infinite;
+}
+.kbd-hint kbd.r{animation-delay:.85s}
+.kbd-hint .label{font-size:15.5px;font-weight:500;letter-spacing:-.01em;opacity:.82}
+@keyframes kbdBounce{0%,100%{transform:translateY(0);opacity:.8}50%{transform:translateY(-5px);opacity:1}}
+@media (max-width:900px),(pointer:coarse){.kbd-hint{display:none}}
 </style>
 </head>
 <body data-themes="minimal-white,sharp-mono,japanese-minimal,swiss-grid" data-theme-base="html-ppt-skill/assets/themes/">
@@ -111,6 +163,7 @@
 
   <!-- 0 · TITLE -->
   <section class="slide center" data-title="Title">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img class="logo-tl" src="assets/logo.png" alt="bkmgLab">
     <div style="display:flex;flex-direction:column;align-items:center;text-align:center;transform:translateY(5vh)">
       <img src="assets/oven-red.png" alt="TurboChef Fire Oven" class="anim-rise-in" data-anim="rise-in" style="height:39vh;max-height:308px;width:auto;object-fit:contain">
@@ -118,11 +171,16 @@
       <div style="font-size:46px;font-weight:800;letter-spacing:var(--letter-tight);line-height:1;margin-top:8px">FIRE OVEN</div>
       <p class="lede" style="margin-top:14px">450°C 가능한 전기 화덕 오븐</p>
     </div>
+    <div class="kbd-hint">
+      <div class="keys"><kbd class="l">←</kbd><kbd class="r">→</kbd></div>
+      <div class="label">좌우 방향키로 넘겨보세요!</div>
+    </div>
     <div class="deck-footer"><span class="dim2">fire.bkmglab.com</span><span class="slide-number" data-current="1" data-total="20"></span></div>
   </section>
 
   <!-- 1 · COVER -->
   <section class="slide" data-title="Cover" style="color:#fff;overflow:hidden">
+    <a class="quote-btn quote-btn--hero" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/testkitchen_bg.jpg" alt="TurboChef Fire 오븐" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.55) 55%,rgba(0,0,0,.3))"></div>
     <img class="logo-tl" src="assets/logo_white.png" alt="bkmgLab">
@@ -143,6 +201,7 @@
 
   <!-- 6 · THE OVEN -->
   <section class="slide" data-title="The Oven">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <p class="kicker">THE OVEN</p>
     <h2 class="stitle anim-fade-up" data-anim="fade-up" style="font-size:27px">TurboChef Fire Oven</h2>
     <div class="hr" style="margin-top:9px"></div>
@@ -172,6 +231,7 @@
 
   <!-- 2 · PRODUCTS -->
   <section class="slide" data-title="Products">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <p class="kicker">PRODUCTS</p>
     <h2 class="stitle anim-fade-up" data-anim="fade-up">요즘 파이어 오븐으로 만들어지는 인기 메뉴</h2>
     <div class="hr"></div>
@@ -198,6 +258,7 @@
 
   <!-- HOW TO USE -->
   <section class="slide" data-title="How To Use">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <p class="kicker">HOW IT WORKS</p>
     <h2 class="stitle anim-fade-up" data-anim="fade-up">파이어 오븐 사용법</h2>
     <div class="hr"></div>
@@ -247,6 +308,7 @@
 
   <!-- 7 · SPECS -->
   <section class="slide" data-title="Specs">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <p class="kicker">SPECS</p>
     <h2 class="stitle anim-fade-up" data-anim="fade-up">스펙으로 보는 파이어 오븐</h2>
     <div class="hr"></div>
@@ -265,6 +327,7 @@
 
   <!-- VENTLESS -->
   <section class="slide" data-title="Ventless" style="color:#fff;overflow:hidden">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/ventless_airport.jpg" alt="공항 내 레스토랑에서 운영 중인 TurboChef Fire 오븐" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.64) 0%,rgba(0,0,0,.42) 36%,rgba(0,0,0,.72) 100%),linear-gradient(90deg,rgba(0,0,0,.5),rgba(0,0,0,0) 72%)"></div>
     <div style="position:relative;z-index:2;text-shadow:0 2px 14px rgba(0,0,0,.5)">
@@ -291,6 +354,7 @@
 
   <!-- 3 · MARKET -->
   <section class="slide" data-title="Market">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <div style="position:absolute;top:-64px;left:-88px;right:-88px;bottom:-64px;z-index:0">
       <img src="assets/market_bg.jpg" alt="나폴리 피자" style="width:100%;height:100%;object-fit:cover;object-position:center">
       <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.6) 52%,rgba(0,0,0,.42))"></div>
@@ -319,6 +383,7 @@
 
   <!-- 4 · MOMENT -->
   <section class="slide" data-title="Moment" style="color:#fff;overflow:hidden">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/moment_bg.jpg" alt="제7회 카푸토컵 나폴리피자 한국챔피언십" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.60) 0%,rgba(0,0,0,.40) 45%,rgba(0,0,0,.28) 100%)"></div>
     <div style="position:relative;z-index:2;max-width:660px;text-shadow:0 2px 12px rgba(0,0,0,.55)">
@@ -338,6 +403,7 @@
 
   <!-- 5 · PROBLEM -->
   <section class="slide" data-title="Problem">
+    <a class="quote-btn" style="right:auto;left:96px" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/problem_photo.jpg" alt="컴팩트 매장" class="anim-fade-up" data-anim="fade-up" style="position:absolute;top:0;right:0;bottom:0;width:38%;height:100%;object-fit:cover;z-index:0">
     <div style="position:relative;z-index:1;width:62%;padding-right:24px">
       <p class="kicker">PROBLEM</p>
@@ -361,6 +427,7 @@
 
   <!-- 8 · PROOF -->
   <section class="slide" data-title="Proof" style="color:#fff;overflow:hidden">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/embassy_photo.jpg" alt="이탈리아 대사관 국경일 행사" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.46) 32%,rgba(0,0,0,.50) 66%,rgba(0,0,0,.80) 100%)"></div>
     <img src="assets/italia.png" alt="주한 이탈리아 대사관" style="position:absolute;top:30px;left:50%;transform:translateX(-50%);z-index:2;height:64px;width:auto;filter:brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,.55))">
@@ -382,6 +449,7 @@
 
   <!-- SEGMENTS · WHO IT'S FOR -->
   <section class="slide" data-title="Segments" style="padding:0;overflow:hidden;color:#fff">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <div style="position:absolute;inset:0;z-index:0;display:flex">
       <div style="flex:1;position:relative;overflow:hidden">
         <img src="assets/segment_cafe.jpg" alt="카페" style="width:100%;height:100%;object-fit:cover">
@@ -431,6 +499,7 @@
 
   <!-- 9 · POP-UP VENUES -->
   <section class="slide" data-title="Pop-up Venues" style="padding:0;justify-content:flex-start;overflow:hidden">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <div style="position:relative;width:100%;height:38vh;overflow:hidden">
       <img src="assets/popup_header.jpg" alt="현장에서 굽는 TurboChef Fire 오븐" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%">
       <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.80) 0%,rgba(0,0,0,.52) 45%,rgba(0,0,0,.30) 100%)"></div>
@@ -486,6 +555,7 @@
 
   <!-- FRANCHISE IDEA -->
   <section class="slide" data-title="Franchise Idea" style="color:#fff;overflow:hidden">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/franchise_bg.jpg" alt="The Subway of Pizza" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.84),rgba(0,0,0,.6) 54%,rgba(0,0,0,.38))"></div>
     <div style="position:relative;z-index:2;max-width:64%;text-shadow:0 2px 12px rgba(0,0,0,.5)">
@@ -506,6 +576,7 @@
 
   <!-- FRANCHISE IDEA · DONUT / MINI PIZZAS -->
   <section class="slide" data-title="Mini Pizzas" style="color:#fff;overflow:hidden">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/donut_bg.jpg" alt="일본 로손 편의점과 후지산" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 46%;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.84) 0%,rgba(0,0,0,.6) 44%,rgba(0,0,0,.34) 70%,rgba(0,0,0,.2) 100%)"></div>
     <div style="position:relative;z-index:2;display:grid;grid-template-columns:0.82fr 1.18fr;gap:48px;align-items:center;height:100%;text-shadow:0 2px 12px rgba(0,0,0,.55)">
@@ -531,6 +602,7 @@
 
   <!-- FRANCHISE IDEA · PIZZA SANDWICH (PANUOZZO) -->
   <section class="slide" data-title="Pizza Sandwich" style="color:#fff;overflow:hidden">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/sandwich_bg.jpg" alt="이탈리아 거리의 젤라테리아 카페" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.84) 0%,rgba(0,0,0,.6) 44%,rgba(0,0,0,.34) 70%,rgba(0,0,0,.2) 100%)"></div>
     <div style="position:relative;z-index:2;display:grid;grid-template-columns:0.82fr 1.18fr;gap:48px;align-items:center;height:100%;text-shadow:0 2px 12px rgba(0,0,0,.55)">
@@ -555,6 +627,7 @@
 
   <!-- 13 · TEST KITCHEN -->
   <section class="slide" data-title="Test Kitchen">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/testkitchen_invite_bg.jpg" alt="BKMG 테스트 키친" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.22) 34%,rgba(0,0,0,.88) 100%),linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.25) 60%,rgba(0,0,0,.1))"></div>
     <div style="position:relative;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,.6)">
@@ -576,6 +649,7 @@
 
   <!-- 10 · ABOUT -->
   <section class="slide" data-title="About">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <p class="kicker">ABOUT</p>
     <h2 class="stitle anim-fade-up" data-anim="fade-up">bkmgLab</h2>
     <div class="hr"></div>
@@ -603,6 +677,7 @@
 
   <!-- 11 · NETWORK -->
   <section class="slide" data-title="Network">
+    <a class="quote-btn" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <div style="position:absolute;top:-64px;left:-88px;right:-88px;bottom:-64px;z-index:0">
       <img src="assets/network_bg.jpg" alt="전국 서비스 네트워크" style="width:100%;height:100%;object-fit:cover;object-position:center">
       <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,16,28,.85),rgba(8,16,28,.55) 50%,rgba(8,16,28,.18))"></div>
@@ -626,6 +701,7 @@
 
   <!-- 14 · CLOSING -->
   <section class="slide" data-title="Closing" style="color:#fff;overflow:hidden">
+    <a class="quote-btn quote-btn--hero" style="right:auto;left:96px;z-index:11" href="https://fire.bkmglab.com/shop" target="_blank" rel="noopener">견적 문의</a>
     <img src="assets/contact_photo.jpg" alt="포폴로 피제리아 · 행사 현장의 TurboChef Fire 오븐" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;z-index:0">
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.32) 34%,rgba(0,0,0,.62) 62%,rgba(0,0,0,.88) 100%)"></div>
     <img class="logo-tl" src="assets/logo_white.png" alt="bkmgLab" style="z-index:10">
